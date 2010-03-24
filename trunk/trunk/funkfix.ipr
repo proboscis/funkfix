@@ -210,7 +210,15 @@
         <root url="jar://$PROJECT_DIR$/lib/scalatest-1.0.jar!/" />
       </CLASSES>
       <JAVADOC />
-      <SOURCES />
+      <SOURCES>
+        <root url="file://$PROJECT_DIR$/../../scala/src/jline/src/main/java" />
+        <root url="file://$PROJECT_DIR$/../../scala/src/partest" />
+        <root url="file://$PROJECT_DIR$/../../scala/src/actors" />
+        <root url="file://$PROJECT_DIR$/../../scala/src/msil" />
+        <root url="file://$PROJECT_DIR$/../../scala/src/library" />
+        <root url="file://$PROJECT_DIR$/../../scala/src/jline/src/test/java" />
+        <root url="file://$PROJECT_DIR$/../../scala/src/fjbg" />
+      </SOURCES>
     </library>
   </component>
 </project>

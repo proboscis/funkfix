@@ -9,7 +9,7 @@ case class SetAttribute(key: Any, value: Any) extends SessionCommand
 case class GetAttribute(key: Any) extends SessionCommand
 case object Stop extends SessionCommand
 
-class Session extends Actor {
+class Session(filter: (String => Either[Error, FixMessage])) extends Actor {
 
   type Attr = Map[Any, Any]
 

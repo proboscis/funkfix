@@ -1,26 +1,34 @@
 package funkfix
-import Tag._
+import Tags._
+import collection.mutable.ListBuffer
 
+class FixMessage(tags: List[(Int, String)]) {
 
-class FixMessage(tags: Map[Int, String]) {
+  def apply(tag: Int) = findTag(tag)
 
-  def apply(tag: Int) = tags get tag
+  private def findTag(tag: Int) = tags.find(x => x._1 == tag) match {
+    case Some((tag, value)) => Some(value)
+    case _ => None
+  }
 
   def msgTypeRaw = apply(MsgType)
 
   def msgType = {
-    val raw = msgTypeRaw
-    if(raw.isDefined) MessageType valueOf raw.get else None
+    msgTypeRaw match {
+      case Some(value) => MessageType valueOf value
+      case _ => None
+    }
   }
 
-  def filter (p : ((Int, String)) => Boolean) : Map[Int, String] = tags filter p
+  def filter (p : ((Int, String)) => Boolean) : List[(Int, String)] = tags filter p
 
   def foreach(f : ((Int, String)) => Unit) : Unit = tags foreach f
 
-
   def extract[A](tag: Int, converter: String => A) = {
-    val value = this(tag)
-    if(value.isDefined) Some(converter(value.get)) else None
+    apply(tag) match {
+      case Some(value) => Some(converter(value))
+      case _ => None
+    }
   }
 
   def extract[A, B](a: (Int, String => A), b: (Int, String => B)) = {
@@ -60,7 +68,23 @@ class FixMessage(tags: Map[Int, String]) {
                              e: (Int, String => E),
                              f: (Int, String => F),
                              g: (Int, String => G)) = {
-    (extract[A](a._1, a._2), extract[B](b._1, b._2), extract[C](c._1, c._2), extract[D](d._1, d._2), extract[E](e._1, e._2),
-     extract[F](f._1, f._2), extract[G](g._1, g._2))
+    (extract[A](a._1, a._2),
+     extract[B](b._1, b._2),
+     extract[C](c._1, c._2),
+     extract[D](d._1, d._2),
+     extract[E](e._1, e._2),
+     extract[F](f._1, f._2),
+     extract[G](g._1, g._2))
   }
+}
+
+class FixMessageBuilder {
+  val buffer = new ListBuffer[(Int, String)]
+
+  def append(tag: (Int, String)) = {
+    buffer.append(tag)
+    this
+  }
+
+  def build = new FixMessage(buffer.toList)
 }
