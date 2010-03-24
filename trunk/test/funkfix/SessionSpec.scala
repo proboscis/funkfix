@@ -5,10 +5,13 @@ import org.scalatest.matchers.ShouldMatchers
 
 
 class SessionSpec extends Spec with ShouldMatchers {
+
   describe("Session agent") {
 
+    val filterChain = FixParser
+
     it("should be possible to set and get custom attributes") {
-      val session = new Session
+      val session = new Session(filterChain)
       session.start
       session ! SetAttribute("A", "B")
       val attr = session !? (500, GetAttribute("A"))
@@ -17,7 +20,7 @@ class SessionSpec extends Spec with ShouldMatchers {
     }
 
     it("should return None for unknown attributes") {
-      val session = new Session
+      val session = new Session(filterChain)
       session.start
       val attr = session !? (500, GetAttribute("A"))
       attr should be (Some(None))

@@ -1,7 +1,6 @@
 package funkfix
 
-
-object Tag {
+object Tags {
   val BeginString = 8;
   val BodyLength = 9;
   val MsgType = 35;
@@ -16,5 +15,4 @@ object Tag {
   val Symbol = 55
   val Price = 44
   val OrdType = 40
-
 }
