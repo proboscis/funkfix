@@ -206,6 +206,8 @@
       <CLASSES>
         <root url="jar://$PROJECT_DIR$/lib/scala-compiler.jar!/" />
         <root url="jar://$PROJECT_DIR$/lib/scala-library.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/junit-4.5.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/scalatest-1.0.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />

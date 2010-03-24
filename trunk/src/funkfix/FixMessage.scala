@@ -1,4 +1,4 @@
-package fix
+package funkfix
 import Tag._
 
 

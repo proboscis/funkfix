@@ -1,4 +1,4 @@
-package fix
+package funkfix
 
 
 object Tag {

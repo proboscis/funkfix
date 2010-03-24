@@ -1,4 +1,4 @@
-package fix.parser
+package funkfix
 
 
 trait Parser[+A] extends ((String, Int) => Result[A])

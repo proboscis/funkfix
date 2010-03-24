@@ -1,14 +1,33 @@
 package funkfix
 
-trait Session {
+import scala.actors.Actor
+import scala.actors.Actor._
 
-  def setAttribute[T](key: Any, value: T)
+abstract sealed class SessionCommand
 
-  def getAttribute[T](key: Any): T
+case class SetAttribute(key: Any, value: Any) extends SessionCommand
+case class GetAttribute(key: Any) extends SessionCommand
+case object Stop extends SessionCommand
 
-  def apply[T](key: Any): T = getAttribute(key)
+class Session extends Actor {
 
-  def sendMessage(msg: FixMessage)
+  type Attr = Map[Any, Any]
+
+  private var attrs: Attr = Map.empty
+
+  def act() {
+    loop {
+      react {
+        case SetAttribute(key, value) => attrs += (key -> value)
+        case GetAttribute(key) => reply(getAttribute(key))
+        case Stop => exit()
+      }
+    }
+  }
+
+  private def getAttribute(key: Any): Option[Any] = attrs.get(key)
+
+  def sendMessage(msg: FixMessage) {}
 
   // TODO filter
 }
