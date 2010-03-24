@@ -1,8 +1,8 @@
-package fix
+package funkfix
 
 import org.scalatest.Spec
 import org.scalatest.matchers.ShouldMatchers
-import fix.Conversions._
+import Conversions._
 
 
 class FixMessageSpec extends Spec with ShouldMatchers {
